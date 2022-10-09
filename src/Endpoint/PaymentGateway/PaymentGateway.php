@@ -17,7 +17,7 @@ use ZarinPal\Sdk\ZarinPal;
 
 final class PaymentGateway
 {
-    private const BASE_URL = 'pg/v4/payment/';
+    private const BASE_URL = '/pg/v4/payment/';
     private const REQUEST_URI = self::BASE_URL . 'request.json';
     private const VERIFY_URI = self::BASE_URL . 'verify.json';
     private const UNVERIFIED_URI = self::BASE_URL . 'unVerified.json';
@@ -67,6 +67,8 @@ final class PaymentGateway
         } catch (Exception $e) {
             throw new ResponseException($e->getMessage(), -99, $e);
         }
+
+        //die(print_r($response));
 
         return $this->checkPaymentGatewayError($response);
     }
