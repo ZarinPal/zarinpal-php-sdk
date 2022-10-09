@@ -28,7 +28,7 @@ final class Options
             [
                 'client_builder' => new ClientBuilder(),
                 'uri_factory' => Psr17FactoryDiscovery::findUriFactory(),
-                'base_url' => $this->arrayGet(getenv(), 'ZARINPAL_MERCHANT_URL', 'https://api.zarinpal.com/'),
+                'base_url' => $this->arrayGet(getenv(), 'ZARINPAL_MERCHANT_URL', 'https://api.zarinpal.com'),
                 'merchant_id' => $this->arrayGet(getenv(), 'ZARINPAL_MERCHANT_KEY', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx')
             ]
         );
