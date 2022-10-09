@@ -67,9 +67,7 @@ final class PaymentGateway
         } catch (Exception $e) {
             throw new ResponseException($e->getMessage(), -99, $e);
         }
-
-        //die(print_r($response));
-
+        
         return $this->checkPaymentGatewayError($response);
     }
 
