@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/ZarinPal/zarinpal-php-sdk.svg?branch=master)](https://travis-ci.org/morilog/jalali)
-morilog/jalali
+[![Build Status](https://travis-ci.org/ZarinPal/zarinpal-php-sdk.svg?branch=master)](https://travis-ci.org/ZarinPal/zarinpal-php-sdk)
+ZarinPal/zarinpal-php-sdk
 ======
 ## Installation*
 #### Requirements:
