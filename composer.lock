@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccb3b1cdf791a18a23c8efc7c650bb08",
+    "content-hash": "99e1b66ec6405ef7248535a7f99e2662",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -403,6 +403,74 @@
                 "source": "https://github.com/php-http/message-factory/tree/master"
             },
             "time": "2015-12-19T14:08:53+00:00"
+        },
+        {
+            "name": "php-http/mock-client",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/mock-client.git",
+                "reference": "a797c2a9122cccafcce14773b8a24d2808a9ab44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/mock-client/zipball/a797c2a9122cccafcce14773b8a24d2808a9ab44",
+                "reference": "a797c2a9122cccafcce14773b8a24d2808a9ab44",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0",
+                "php-http/client-common": "^2.0",
+                "php-http/discovery": "^1.0",
+                "php-http/httplug": "^2.0",
+                "php-http/message-factory": "^1.0",
+                "psr/http-client": "^1.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.0",
+                "symfony/polyfill-php80": "^1.17"
+            },
+            "provide": {
+                "php-http/async-client-implementation": "1.0",
+                "php-http/client-implementation": "1.0",
+                "psr/http-client-implementation": "1.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "^5.1 || ^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Http\\Mock\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David de Boer",
+                    "email": "david@ddeboer.nl"
+                }
+            ],
+            "description": "Mock HTTP client",
+            "homepage": "http://httplug.io",
+            "keywords": [
+                "client",
+                "http",
+                "mock",
+                "psr7"
+            ],
+            "support": {
+                "issues": "https://github.com/php-http/mock-client/issues",
+                "source": "https://github.com/php-http/mock-client/tree/1.5.0"
+            },
+            "time": "2021-08-25T07:01:14+00:00"
         },
         {
             "name": "php-http/promise",
@@ -1301,74 +1369,6 @@
                 "source": "https://github.com/php-http/curl-client/tree/2.2.1"
             },
             "time": "2021-12-10T18:02:07+00:00"
-        },
-        {
-            "name": "php-http/mock-client",
-            "version": "1.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-http/mock-client.git",
-                "reference": "a797c2a9122cccafcce14773b8a24d2808a9ab44"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-http/mock-client/zipball/a797c2a9122cccafcce14773b8a24d2808a9ab44",
-                "reference": "a797c2a9122cccafcce14773b8a24d2808a9ab44",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0",
-                "php-http/client-common": "^2.0",
-                "php-http/discovery": "^1.0",
-                "php-http/httplug": "^2.0",
-                "php-http/message-factory": "^1.0",
-                "psr/http-client": "^1.0",
-                "psr/http-factory": "^1.0",
-                "psr/http-message": "^1.0",
-                "symfony/polyfill-php80": "^1.17"
-            },
-            "provide": {
-                "php-http/async-client-implementation": "1.0",
-                "php-http/client-implementation": "1.0",
-                "psr/http-client-implementation": "1.0"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "^5.1 || ^6.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Http\\Mock\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "David de Boer",
-                    "email": "david@ddeboer.nl"
-                }
-            ],
-            "description": "Mock HTTP client",
-            "homepage": "http://httplug.io",
-            "keywords": [
-                "client",
-                "http",
-                "mock",
-                "psr7"
-            ],
-            "support": {
-                "issues": "https://github.com/php-http/mock-client/issues",
-                "source": "https://github.com/php-http/mock-client/tree/1.5.0"
-            },
-            "time": "2021-08-25T07:01:14+00:00"
         },
         {
             "name": "phpstan/phpstan",
