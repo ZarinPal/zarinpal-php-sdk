@@ -1,0 +1,4 @@
+docs/* export-ignore
+examples/* export-ignore
+composer.lock export-ignore
+README.md export-ignore
