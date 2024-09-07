@@ -13,6 +13,7 @@ final class ZarinPal
 {
     private ClientBuilder $clientBuilder;
     private Options $options;
+    private HttpMethodsClientInterface $httpClient;
 
     public function __construct(Options $options = null)
     {
@@ -28,11 +29,17 @@ final class ZarinPal
                 ]
             )
         );
+        $this->httpClient = $this->clientBuilder->getHttpClient();
     }
 
     private function getClassName(): string
     {
         return basename(str_replace('\\', '/', __CLASS__));
+    }
+
+    public function getOptions(): Options
+    {
+        return $this->options;
     }
 
     public function paymentGateway(): PaymentGateway
@@ -47,6 +54,11 @@ final class ZarinPal
 
     public function getHttpClient(): HttpMethodsClientInterface
     {
-        return $this->clientBuilder->getHttpClient();
+        return $this->httpClient;
+    }
+
+    public function setHttpClient(HttpMethodsClientInterface $client): void
+    {
+        $this->httpClient = $client;
     }
 }

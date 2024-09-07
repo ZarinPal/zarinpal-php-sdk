@@ -10,6 +10,7 @@ class UnverifiedResponse
     use Fillable;
 
     public array $authorities;
+    public array $list;
 
 
 }

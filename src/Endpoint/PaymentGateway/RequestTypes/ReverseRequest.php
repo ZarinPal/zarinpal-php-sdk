@@ -3,21 +3,24 @@
 namespace ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes;
 
 use InvalidArgumentException;
-use JsonException;
 use ZarinPal\Sdk\Endpoint\Fillable;
+use ZarinPal\Sdk\Options;
 
-class VerifyRequest
+class ReverseRequest
 {
     use Fillable;
 
-    public ?string $merchantId = null;
-    public int $amount;
+    public string $merchantId;
     public string $authority;
+
+    public function __construct(Options $options)
+    {
+        $this->merchantId = $options->getMerchantId();
+    }
 
     public function validate(): void
     {
         $this->validateMerchantId();
-        $this->validateAmount();
         $this->validateAuthority();
     }
 
@@ -28,13 +31,6 @@ class VerifyRequest
         }
     }
 
-    private function validateAmount(): void
-    {
-        if ($this->amount <= 0) {
-            throw new InvalidArgumentException('Amount must be greater than zero.');
-        }
-    }
-
     private function validateAuthority(): void
     {
         if ($this->authority === null || !preg_match('/^A[0-9a-zA-Z]{32}$/', $this->authority)) {
@@ -42,16 +38,12 @@ class VerifyRequest
         }
     }
 
-    /**
-     * @throws JsonException
-     */
     final public function toString(): string
     {
         $this->validate();
 
         return json_encode([
             "merchant_id" => $this->merchantId,
-            "amount" => $this->amount,
             "authority" => $this->authority,
         ], JSON_THROW_ON_ERROR);
     }
