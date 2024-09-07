@@ -14,5 +14,7 @@ class RequestResponse
     public string $message;
     public string $fee_type;
     public int $fee;
+    public int $amount;
+    public string $status;
 
 }
