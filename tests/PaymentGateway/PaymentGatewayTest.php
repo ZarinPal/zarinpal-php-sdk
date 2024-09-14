@@ -69,7 +69,7 @@ class PaymentGatewayTest extends BaseTestCase
 
         $verify = new VerifyRequest();
         $verify->amount = 15000;
-        $verify->authority = 'A00000000000000000000000000123456';
+        $verify->authority = 'A000000000000000000000000000ydq5y838';
 
         $response = $this->gateway->verify($verify);
         $this->assertEquals(100, $response->code);
@@ -80,8 +80,8 @@ class PaymentGatewayTest extends BaseTestCase
         $responseBody = [
             'data' => [
                 'list' => [
-                    ['authority' => 'A00000000000000000000000000123456'],
-                    ['authority' => 'B00000000000000000000000000123457'],
+                    ['authority' => 'A000000000000000000000000000ydq5y838'],
+                    ['authority' => 'A000000000000000000000000000ydq5y839'],
                 ]
             ],
             'errors' => []
@@ -95,7 +95,7 @@ class PaymentGatewayTest extends BaseTestCase
 
         $response = $this->gateway->unverified($unverified);
         $this->assertCount(2, $response->list);
-        $this->assertEquals('A00000000000000000000000000123456', $response->list[0]['authority']);
+        $this->assertEquals('A000000000000000000000000000ydq5y838', $response->list[0]['authority']);
     }
 
     public function testReverse()
@@ -111,8 +111,8 @@ class PaymentGatewayTest extends BaseTestCase
             ->method('post')
             ->willReturn(new \GuzzleHttp\Psr7\Response(200, [], json_encode($responseBody)));
 
-        $reverseRequest = new ReverseRequest($this->getOptions());
-        $reverseRequest->authority = 'A00000000000000000000000000123456';
+        $reverseRequest = new ReverseRequest();
+        $reverseRequest->authority = 'A000000000000000000000000000ydq5y838';
 
         $response = $this->gateway->reverse($reverseRequest);
         $this->assertEquals('Success', $response->status);
@@ -131,8 +131,8 @@ class PaymentGatewayTest extends BaseTestCase
             ->method('post')
             ->willReturn(new \GuzzleHttp\Psr7\Response(200, [], json_encode($responseBody)));
 
-        $inquiryRequest = new InquiryRequest($this->getOptions());
-        $inquiryRequest->authority = 'A00000000000000000000000000123456';
+        $inquiryRequest = new InquiryRequest();
+        $inquiryRequest->authority = 'A000000000000000000000000000ydq5y838';
 
         $response = $this->gateway->inquiry($inquiryRequest);
         $this->assertEquals(15000, $response->amount);

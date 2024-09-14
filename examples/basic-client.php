@@ -34,18 +34,18 @@ $request->mobile = '09370000000';
 $request->email = 'a@b.c';
 $request->currency = 'IRT';
 $request->cardPan = '5022291083818920';
-//$request->wages = [
-//    [
-//        'iban' => 'IR130570028780010957775103',
-//        'amount' =>5000,
-//        'description' => 'تسهیم سود فروش'
-//    ],
-//    [
-//        'iban' => 'IR670170000000352965862009',
-//        'amount' => 5000,
-//        'description' => 'تسهیم سود فروش به شخص دوم'
-//    ]
-//];
+$request->wages = [
+    [
+        'iban' => 'IR130570028780010957775103',
+        'amount' =>5000,
+        'description' => 'تسهیم سود فروش'
+    ],
+    [
+        'iban' => 'IR670170000000352965862009',
+        'amount' => 5000,
+        'description' => 'تسهیم سود فروش به شخص دوم'
+    ]
+];
 
 $verify = new VerifyRequest();
 $verify->amount = 15000;
