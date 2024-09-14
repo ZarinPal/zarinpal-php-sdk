@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use ZarinPal\Sdk\Options;
 use ZarinPal\Sdk\Endpoint\GraphQL\RefundService;
