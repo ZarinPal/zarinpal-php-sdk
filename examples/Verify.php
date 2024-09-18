@@ -7,7 +7,7 @@ use ZarinPal\Sdk\ZarinPal;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes\VerifyRequest;
 
 $options = new Options([
-    'merchant_id' => '1379bc04-196d-47bb-a8f0-0e969ec96179',
+    'merchant_id' => 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
 ]);
 
 $zarinpal = new ZarinPal($options);
@@ -15,7 +15,7 @@ $paymentGateway = $zarinpal->paymentGateway();
 
 $verifyRequest = new VerifyRequest();
 $verifyRequest->authority = 'A000000000000000000000000000ydq5y838'; // The authority code returned by the initial payment request
-$verifyRequest->amount = 1000; // Amount in IRR
+$verifyRequest->amount = 10000; // Amount
 
 try {
     $response = $paymentGateway->verify($verifyRequest);

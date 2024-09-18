@@ -7,7 +7,7 @@ use ZarinPal\Sdk\ZarinPal;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes\ReverseRequest;
 
 $options = new Options([
-    'merchant_id' => 'efb22724-c8d3-46c8-a4e7-f87b0e07748e',
+    'merchant_id' => 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
 ]);
 
 $zarinpal = new ZarinPal($options);

@@ -21,7 +21,7 @@ $clientBuilder->addPlugin(new HeaderDefaultsPlugin([
 // usage
 $options = new Options([
     'client_builder' => $clientBuilder,
-    'merchant_id' => '25fe4c36-66e4-11e9-a9e4-000c29344814',
+    'merchant_id' => 'x1379bc04-196d-47bb-a8f0-0e969ec96179',
 ]);
 
 $sdk = new ZarinPal($options);
@@ -70,7 +70,6 @@ try {
     // هندل کردن دیگر خطاهای غیرمنتظره
     echo "Unexpected Error: " . $e->getMessage();
 }
-die();
 $response2 = $sdk->paymentGateway()->verify($verify);
 $response3 = $sdk->paymentGateway()->unverified($unverified);
 $response4 = $sdk->paymentGateway()->reverse($reverseRequest);
