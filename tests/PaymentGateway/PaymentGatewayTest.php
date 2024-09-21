@@ -79,10 +79,24 @@ class PaymentGatewayTest extends BaseTestCase
     {
         $responseBody = [
             'data' => [
-                'list' => [
-                    ['authority' => 'A000000000000000000000000000ydq5y838'],
-                    ['authority' => 'A000000000000000000000000000ydq5y839'],
-                ]
+                'code' => 100,
+                'message' => 'Success',
+                'authorities' => [
+                    [
+                        'authority' => 'A000000000000000000000000000ydq5y838',
+                        'amount' => 50000,
+                        'callback_url' => 'https://example.com/callback',
+                        'referer' => 'https://example.com/referer',
+                        'date' => '2024-09-22 10:00:00'
+                    ],
+                    [
+                        'authority' => 'A000000000000000000000000000ydq5y839',
+                        'amount' => 75000,
+                        'callback_url' => 'https://example.com/callback2',
+                        'referer' => 'https://example.com/referer2',
+                        'date' => '2024-09-22 12:00:00'
+                    ],
+                ],
             ],
             'errors' => []
         ];
@@ -92,10 +106,18 @@ class PaymentGatewayTest extends BaseTestCase
             ->willReturn(new \GuzzleHttp\Psr7\Response(200, [], json_encode($responseBody)));
 
         $unverified = new UnverifiedRequest();
-
         $response = $this->gateway->unverified($unverified);
-        $this->assertCount(2, $response->list);
-        $this->assertEquals('A000000000000000000000000000ydq5y838', $response->list[0]['authority']);
+
+        $this->assertEquals(100, $response->code);
+        $this->assertCount(2, $response->authorities);
+        $this->assertEquals('A000000000000000000000000000ydq5y838', $response->authorities[0]['authority']);
+        $this->assertEquals(50000, $response->authorities[0]['amount']);
+        $this->assertEquals('https://example.com/callback', $response->authorities[0]['callback_url']);
+        $this->assertEquals('2024-09-22 10:00:00', $response->authorities[0]['date']);
+        $this->assertEquals('A000000000000000000000000000ydq5y839', $response->authorities[1]['authority']);
+        $this->assertEquals(75000, $response->authorities[1]['amount']);
+        $this->assertEquals('https://example.com/callback2', $response->authorities[1]['callback_url']);
+        $this->assertEquals('2024-09-22 12:00:00', $response->authorities[1]['date']);
     }
 
     public function testReverse()
