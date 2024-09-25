@@ -31,6 +31,7 @@
     "php-http/client-common": "^2.5",
     "php-http/discovery": "^1.14",
     "ext-json": "*",
+    "ext-curl": "*",
     "psr/http-client-implementation": "*",
     "symfony/http-client": "^7.1",
     "guzzlehttp/guzzle": "^7.9"
