@@ -12,7 +12,7 @@ class TransactionListResponse
     public string $status;
     public int $amount;
     public string $description;
-    public string $createdAt;
+    public string $created_at;
 
     public function __construct(array $data)
     {
@@ -20,6 +20,6 @@ class TransactionListResponse
         $this->status = $data['status'];
         $this->amount = $data['amount'];
         $this->description = $data['description'];
-        $this->createdAt = $data['created_at'];
+        $this->created_at = $data['created_at'];
     }
 }

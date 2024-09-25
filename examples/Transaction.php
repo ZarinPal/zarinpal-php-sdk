@@ -1,30 +1,39 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
+use ZarinPal\Sdk\HttpClient\Exception\ResponseException;
 use ZarinPal\Sdk\Options;
 use ZarinPal\Sdk\Endpoint\GraphQL\TransactionService;
 use ZarinPal\Sdk\Endpoint\GraphQL\RequestTypes\TransactionListRequest;
 
 $options = new Options([
-    'access_token' => 'your_access_token_here',
+    'access_token' => 'your access token', // Access token without Bearer
 ]);
 
 $transactionService = new TransactionService($options);
 
 $transactionRequest = new TransactionListRequest();
-$transactionRequest->terminalId = '238';
+$transactionRequest->terminalId = '250';
 $transactionRequest->filter = 'PAID'; // Optional filter: PAID, VERIFIED, TRASH, ACTIVE, REFUNDED
 
 try {
     $transactions = $transactionService->getTransactions($transactionRequest);
+
+    $transactionArray = [];
     foreach ($transactions as $transaction) {
-        echo "Transaction ID: " . $transaction->id . "\n";
-        echo "Status: " . $transaction->status . "\n";
-        echo "Amount: " . $transaction->amount . "\n";
-        echo "Description: " . $transaction->description . "\n";
-        echo "Created At: " . $transaction->created_at . "\n\n";
+        $transactionArray[] = [
+            'Transaction ID' => $transaction->id,
+            'Status' => $transaction->status,
+            'Amount' => $transaction->amount,
+            'Description' => $transaction->description,
+            'Created At' => $transaction->created_at,
+        ];
     }
-} catch (\Exception $e) {
-    echo 'Failed to retrieve transactions: ' . $e->getMessage();
+
+    echo json_encode($transactionArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+} catch (ResponseException $e) {
+    echo "GraphQL Error: " . $e->getMessage();
+} catch (Exception $e) {
+    echo "General Error: " . $e->getMessage();
 }

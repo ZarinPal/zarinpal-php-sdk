@@ -37,7 +37,7 @@ class VerifyRequest
 
     private function validateAuthority(): void
     {
-        if ($this->authority === null || !preg_match('/^A[0-9a-zA-Z]{32}$/', $this->authority)) {
+        if (!preg_match('/^A[0-9a-zA-Z]{35}$/', $this->authority)) {
             throw new InvalidArgumentException('Invalid authority format. It should be a string starting with "A" followed by 32 alphanumeric characters.');
         }
     }

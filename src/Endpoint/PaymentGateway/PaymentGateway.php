@@ -117,13 +117,21 @@ final class PaymentGateway
                 $code = $statusCode;
             }
 
-            echo "HTTP Status Code: $statusCode\n";
-            echo "Error Code: $code\n";
-            echo "Error Message: $message\n";
+            // Create the error response as an array
+            $errorResponse = [
+                'http_status_code' => $statusCode,
+                'error_code' => $code,
+                'error_message' => $message,
+            ];
 
-            throw new ResponseException($message, $code);
+            // Convert the error response to JSON
+            $errorJson = json_encode($errorResponse, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+            // Instead of displaying the error, throw it as JSON
+            throw new ResponseException($errorJson, $code);
         }
     }
+
 
     private function checkPaymentGatewayError(array $response): array
     {
