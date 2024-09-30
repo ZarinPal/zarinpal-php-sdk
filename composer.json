@@ -38,7 +38,8 @@
     "ext-curl": "*",
     "psr/http-client-implementation": "*",
     "symfony/http-client": "^7.1",
-    "guzzlehttp/guzzle": "^7.9"
+    "guzzlehttp/guzzle": "^7.9",
+    "php-http/guzzle6-adapter": "^1.1"
   },
   "require-dev": {
     "php-http/curl-client": "^2.2",
