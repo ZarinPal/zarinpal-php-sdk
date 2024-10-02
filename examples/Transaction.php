@@ -4,20 +4,27 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use ZarinPal\Sdk\HttpClient\Exception\ResponseException;
 use ZarinPal\Sdk\Options;
-use ZarinPal\Sdk\Endpoint\GraphQL\TransactionService;
+use ZarinPal\Sdk\ClientBuilder;
+use ZarinPal\Sdk\ZarinPal;
 use ZarinPal\Sdk\Endpoint\GraphQL\RequestTypes\TransactionListRequest;
 
+$clientBuilder = new ClientBuilder();
+
 $options = new Options([
+    'client_builder' => $clientBuilder,
     'access_token' => 'your access token', // Access token without Bearer
 ]);
 
-$transactionService = new TransactionService($options);
+$zarinpal = new ZarinPal($options);
+
+$transactionService = $zarinpal->transactionService();
 
 $transactionRequest = new TransactionListRequest();
-$transactionRequest->terminalId = '250';
+$transactionRequest->terminalId = '349555';
 $transactionRequest->filter = 'PAID'; // Optional filter: PAID, VERIFIED, TRASH, ACTIVE, REFUNDED
 
 try {
+
     $transactions = $transactionService->getTransactions($transactionRequest);
 
     $transactionArray = [];

@@ -17,6 +17,8 @@ class TransactionListRequest
     public ?string $email = null;
     public ?string $mobile = null;
     public ?string $description = null;
+    public ?int $limit = 25;
+    public ?int $offset = 0;
 
     public function validate(): void
     {
@@ -41,6 +43,8 @@ class TransactionListRequest
                     $email: String,
                     $mobile: CellNumber,
                     $description: String
+                    $limit: Int
+                    $offset: Int
                 ) {
                     Session(
                         terminal_id: $terminal_id,
@@ -52,6 +56,8 @@ class TransactionListRequest
                         email: $email,
                         mobile: $mobile,
                         description: $description
+                        limit: $limit
+                        offset: $offset
                     ) {
                         id,
                         status,
@@ -71,6 +77,8 @@ class TransactionListRequest
                 'email' => $this->email,
                 'mobile' => $this->mobile,
                 'description' => $this->description,
+                'limit' => $this->limit,
+                'offset' => $this->offset,
             ]
         ], JSON_THROW_ON_ERROR);
     }

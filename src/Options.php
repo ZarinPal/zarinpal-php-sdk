@@ -26,12 +26,12 @@ final class Options
         $resolver->setDefaults([
             'client_builder' => new ClientBuilder(),
             'uri_factory' => Psr17FactoryDiscovery::findUriFactory(),
-            'base_url' => 'https://payment.zarinpal.com',
-            'sandbox_base_url' => 'https://sandbox.zarinpal.com',
+            'base_url' => $this->arrayGet(getenv(), 'ZARINPAL_BASE_URL', 'https://payment.zarinpal.com'),
+            'sandbox_base_url' => $this->arrayGet(getenv(), 'ZARINPAL_SANDBOX_BASE_URL', 'https://sandbox.zarinpal.com'),
             'merchant_id' => $this->arrayGet(getenv(), 'ZARINPAL_MERCHANT_KEY', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'),
-            'graphql_url' => 'https://next.zarinpal.com/api/v4/graphql/', // Fixed GraphQL URL
+            'graphql_url' => $this->arrayGet(getenv(), 'ZARINPAL_GRAPHQL_URL', 'https://next.zarinpal.com/api/v4/graphql/'),
             'access_token' => $this->arrayGet(getenv(), 'ZARINPAL_ACCESS_TOKEN', ''),
-            'sandbox' => false, // Default is production mode
+            'sandbox' => $this->arrayGet(getenv(), 'ZARINPAL_SANDBOX', 'false') === 'true',
         ]);
 
         $resolver->setAllowedTypes('client_builder', ClientBuilder::class);
@@ -82,10 +82,5 @@ final class Options
     public function getAccessToken(): string
     {
         return $this->options['access_token'];
-    }
-
-    public function isSandbox(): bool
-    {
-        return $this->options['sandbox'];
     }
 }

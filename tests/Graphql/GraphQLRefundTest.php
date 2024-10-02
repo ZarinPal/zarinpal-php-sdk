@@ -3,6 +3,8 @@
 namespace Tests\Graphql;
 
 use Tests\BaseTestCase;
+use ZarinPal\Sdk\Options;
+use ZarinPal\Sdk\ClientBuilder;
 use ZarinPal\Sdk\Endpoint\GraphQL\RefundService;
 use ZarinPal\Sdk\Endpoint\GraphQL\RequestTypes\RefundRequest;
 use ZarinPal\Sdk\Endpoint\GraphQL\ResponseTypes\RefundResponse;
@@ -14,7 +16,15 @@ class GraphQLRefundTest extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->refundService = $this->createMock(RefundService::class);
+
+        $clientBuilder = new ClientBuilder();
+
+        $options = new Options([
+            'client_builder' => $clientBuilder,
+            'access_token' => 'your_access_token',
+        ]);
+
+        $this->refundService = new RefundService($clientBuilder, $options);
     }
 
     public function testRefund()
@@ -35,13 +45,13 @@ class GraphQLRefundTest extends BaseTestCase
             ]
         ]);
 
-        $this->refundService->method('refund')->willReturn($mockResponse);
+        $refundServiceMock = $this->createMock(RefundService::class);
+        $refundServiceMock->method('refund')->willReturn($mockResponse);
 
-        $response = $this->refundService->refund($refundRequest);
+        $response = $refundServiceMock->refund($refundRequest);
 
         $this->assertEquals('1234567890', $response->id);
         $this->assertEquals(20000, $response->amount);
         $this->assertArrayHasKey('refund_status', $response->timeline);
     }
-
 }

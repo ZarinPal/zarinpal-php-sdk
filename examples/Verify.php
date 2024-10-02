@@ -23,8 +23,8 @@ $options = new Options([
 $zarinpal = new ZarinPal($options);
 $paymentGateway = $zarinpal->paymentGateway();
 
-$authority = $_GET['Authority'];
-$status = $_GET['Status'];
+$authority = filter_input(INPUT_GET, 'Authority', FILTER_SANITIZE_STRING);
+$status = filter_input(INPUT_GET, 'Status', FILTER_SANITIZE_STRING);
 
 if ($status === 'OK') {
 
@@ -38,11 +38,13 @@ if ($status === 'OK') {
         try {
             $response = $paymentGateway->verify($verifyRequest);
 
-            if ($response->code === 100 || $response->code === 101) {
+            if ($response->code === 100) {
                 echo "Payment Verified: \n";
                 echo "Reference ID: " . $response->ref_id . "\n";
                 echo "Card PAN: " . $response->card_pan . "\n";
                 echo "Fee: " . $response->fee . "\n";
+            } else if ($response->code === 101) {
+                echo "Payment already verified: \n";
             } else {
                 echo "Transaction failed with code: " . $response->code;
             }
