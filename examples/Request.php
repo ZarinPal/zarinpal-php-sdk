@@ -4,6 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use ZarinPal\Sdk\ClientBuilder;
+use ZarinPal\Sdk\HttpClient\Exception\ResponseException;
 use ZarinPal\Sdk\Options;
 use ZarinPal\Sdk\ZarinPal;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes\RequestRequest;
@@ -48,6 +49,9 @@ try {
     $url = $paymentGateway->getRedirectUrl($response->authority); // create full url Payment
     header('Location:'. $url);
 
+} catch (ResponseException $e) {
+    var_dump($e->getErrorDetails());
+
 } catch (\Exception $e) {
-    echo 'Payment request failed: ' . $e->getMessage();
-}
+    var_dump($e->getMessage());
+    }

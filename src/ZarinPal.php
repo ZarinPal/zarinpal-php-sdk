@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 namespace ZarinPal\Sdk;
 
 use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\BaseUriPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
+use ZarinPal\Sdk\Endpoint\GraphQL\TransactionService;
+use ZarinPal\Sdk\Endpoint\GraphQL\RefundService;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\PaymentGateway;
 
 final class ZarinPal
@@ -45,6 +45,16 @@ final class ZarinPal
     public function paymentGateway(): PaymentGateway
     {
         return new PaymentGateway($this);
+    }
+
+    public function transactionService(): TransactionService
+    {
+        return new TransactionService($this->clientBuilder, $this->options);
+    }
+
+    public function refundService(): RefundService
+    {
+        return new RefundService($this->clientBuilder, $this->options);
     }
 
     public function getMerchantId(): string

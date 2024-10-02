@@ -3,15 +3,20 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use ZarinPal\Sdk\Options;
-use ZarinPal\Sdk\Endpoint\GraphQL\RefundService;
+use ZarinPal\Sdk\ClientBuilder;
+use ZarinPal\Sdk\ZarinPal;
 use ZarinPal\Sdk\Endpoint\GraphQL\RequestTypes\RefundRequest;
 
+$clientBuilder = new ClientBuilder(30);
+
 $options = new Options([
-    'access_token' => 'your access token', // Access token without Bearer
+    'client_builder' => $clientBuilder,
+    'access_token' => 'your_access_token', // Access token بدون Bearer
 ]);
 
-$refundService = new RefundService($options);
+$zarinpal = new ZarinPal($options);
 
+$refundService = $zarinpal->refundService();
 $refundRequest = new RefundRequest();
 $refundRequest->sessionId = '580868147';
 $refundRequest->amount = 20000; // Amount in IRR

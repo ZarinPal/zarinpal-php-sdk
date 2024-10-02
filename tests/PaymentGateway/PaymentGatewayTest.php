@@ -3,7 +3,8 @@
 namespace Tests\PaymentGateway;
 
 use Http\Client\Common\HttpMethodsClientInterface;
-use Http\Mock\Client as MockClient;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 use Tests\BaseTestCase;
 use ZarinPal\Sdk\ZarinPal;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\PaymentGateway;
@@ -29,18 +30,30 @@ class PaymentGatewayTest extends BaseTestCase
         $this->gateway = new PaymentGateway($zarinpal);
     }
 
+    private function createMockResponse($body, $statusCode = 200)
+    {
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->method('getContents')->willReturn(json_encode($body));
+
+        $response = $this->createMock(ResponseInterface::class);
+        $response->method('getBody')->willReturn($stream);
+        $response->method('getStatusCode')->willReturn($statusCode);
+
+        return $response;
+    }
+
     public function testRequest()
     {
         $responseBody = [
             'data' => [
-                'authority' => 'A00000000000000000000000000123456',
+                'authority' => 'A0000000000000000000000000012b4A6',
             ],
             'errors' => []
         ];
 
         $this->clientMock->expects($this->once())
             ->method('post')
-            ->willReturn(new \GuzzleHttp\Psr7\Response(200, [], json_encode($responseBody)));
+            ->willReturn($this->createMockResponse($responseBody));
 
         $request = new RequestRequest();
         $request->amount = 10000;
@@ -50,7 +63,7 @@ class PaymentGatewayTest extends BaseTestCase
         $request->email = 'test@example.com';
 
         $response = $this->gateway->request($request);
-        $this->assertEquals('A00000000000000000000000000123456', $response->authority);
+        $this->assertEquals('A0000000000000000000000000012b4A6', $response->authority);
     }
 
     public function testVerify()
@@ -65,7 +78,7 @@ class PaymentGatewayTest extends BaseTestCase
 
         $this->clientMock->expects($this->once())
             ->method('post')
-            ->willReturn(new \GuzzleHttp\Psr7\Response(200, [], json_encode($responseBody)));
+            ->willReturn($this->createMockResponse($responseBody));
 
         $verify = new VerifyRequest();
         $verify->amount = 15000;
@@ -103,7 +116,7 @@ class PaymentGatewayTest extends BaseTestCase
 
         $this->clientMock->expects($this->once())
             ->method('post')
-            ->willReturn(new \GuzzleHttp\Psr7\Response(200, [], json_encode($responseBody)));
+            ->willReturn($this->createMockResponse($responseBody));
 
         $unverified = new UnverifiedRequest();
         $response = $this->gateway->unverified($unverified);
@@ -131,7 +144,7 @@ class PaymentGatewayTest extends BaseTestCase
 
         $this->clientMock->expects($this->once())
             ->method('post')
-            ->willReturn(new \GuzzleHttp\Psr7\Response(200, [], json_encode($responseBody)));
+            ->willReturn($this->createMockResponse($responseBody));
 
         $reverseRequest = new ReverseRequest();
         $reverseRequest->authority = 'A000000000000000000000000000ydq5y838';
@@ -151,7 +164,7 @@ class PaymentGatewayTest extends BaseTestCase
 
         $this->clientMock->expects($this->once())
             ->method('post')
-            ->willReturn(new \GuzzleHttp\Psr7\Response(200, [], json_encode($responseBody)));
+            ->willReturn($this->createMockResponse($responseBody));
 
         $inquiryRequest = new InquiryRequest();
         $inquiryRequest->authority = 'A000000000000000000000000000ydq5y838';

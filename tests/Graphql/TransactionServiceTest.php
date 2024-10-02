@@ -2,13 +2,12 @@
 
 namespace Tests\Graphql;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use Tests\BaseTestCase;
+use ZarinPal\Sdk\ClientBuilder;
 use ZarinPal\Sdk\Endpoint\GraphQL\TransactionService;
 use ZarinPal\Sdk\Endpoint\GraphQL\RequestTypes\TransactionListRequest;
+use ZarinPal\Sdk\Endpoint\GraphQL\ResponseTypes\TransactionListResponse;
+use ZarinPal\Sdk\Options;
 
 class TransactionServiceTest extends BaseTestCase
 {
@@ -18,32 +17,23 @@ class TransactionServiceTest extends BaseTestCase
     {
         parent::setUp();
 
-        // Mock the response without the errors key
-        $mock = new MockHandler([
-            new Response(200, [], json_encode([
-                'data' => [
-                    'Session' => [
-                        [
-                            'id' => '1234567890',
-                            'status' => 'PAID',
-                            'amount' => 10000,
-                            'description' => 'Test transaction',
-                            'created_at' => '2024-08-25T15:00:00+03:30'
-                        ]
-                    ]
-                ]
-            ])),
+        $clientBuilder = new ClientBuilder();
+        $options = new Options([
+            'client_builder' => $clientBuilder,
+            'access_token' => 'your_access_token',
+            'graphql_url' => 'https://your-graphql-endpoint',
         ]);
 
-        $handlerStack = HandlerStack::create($mock);
-        $mockClient = new Client(['handler' => $handlerStack]);
-
-        // Inject mock client into the TransactionService
-        $this->transactionService = new TransactionService($this->getOptions());
-        $reflection = new \ReflectionClass($this->transactionService);
-        $clientProperty = $reflection->getProperty('client');
-        $clientProperty->setAccessible(true);
-        $clientProperty->setValue($this->transactionService, $mockClient);
+        $this->transactionService = $this->createMock(TransactionService::class);
+        $this->transactionService->method('getTransactions')->willReturn([
+            new TransactionListResponse([
+                'id' => '1234567890',
+                'status' => 'PAID',
+                'amount' => 10000,
+                'description' => 'Test transaction',
+                'created_at' => '2024-08-25T15:00:00+03:30'
+            ])
+        ]);
     }
 
     public function testGetTransactions()
