@@ -3,6 +3,7 @@
 namespace ZarinPal\Sdk\Endpoint\GraphQL\RequestTypes;
 
 use ZarinPal\Sdk\Endpoint\Fillable;
+use ZarinPal\Sdk\Validator;
 
 class RefundRequest
 {
@@ -24,12 +25,10 @@ class RefundRequest
 
     public function validate(): void
     {
-        if (empty($this->sessionId)) {
-            throw new \InvalidArgumentException('Session ID is required.');
-        }
-        if ($this->amount < 20000) {
-            throw new \InvalidArgumentException('Amount must be at least 20000 IRR.');
-        }
+        Validator::validateSessionId($this->sessionId);
+        Validator::validateAmount($this->amount, 20000);
+        Validator::validateMethod($this->method);
+        Validator::validateReason($this->reason);
     }
 
     public function toGraphQL(): string
