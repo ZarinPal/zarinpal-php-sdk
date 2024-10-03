@@ -18,7 +18,7 @@ class BaseTestCase extends TestCase
         $this->mockClient = new MockClient();
         $this->options = new Options([
             'access_token' => 'mock-access-token',
-            'merchant_id' => '25fe4c36-66e4-11e9-a9e4-000c29344814',
+            'merchant_id' => '67887a6d-e2f8-4de2-86b1-8db27bc171b5',
         ]);
     }
 
