@@ -14,12 +14,6 @@ class UnverifiedResponse
 
     public function __construct(array $data = null)
     {
-        if ($data === null || !isset($data['code'], $data['message'])) {
-            $this->code = 0;
-            $this->message = 'No data received';
-            return;
-        }
-
         $this->code = $data['code'];
         $this->message = $data['message'];
 
