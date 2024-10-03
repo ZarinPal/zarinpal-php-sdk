@@ -7,7 +7,7 @@ use ZarinPal\Sdk\ZarinPal;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes\UnverifiedRequest;
 
 $options = new Options([
-    'merchant_id' => 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+    'merchant_id' => '67887a6d-e2f8-4de2-86b1-8db27bc171b5',
 ]);
 
 $zarinpal = new ZarinPal($options);
@@ -20,13 +20,17 @@ try {
     $response = $paymentGateway->unverified($unverifiedRequest);
 
     if ($response->code === 100) {
-        foreach ($response->authorities as $transaction) {
-            echo "Transaction Authority: " . $transaction['authority'] . "\n";
-            echo "Amount: " . $transaction['amount'] . "\n";
-            echo "Callback URL: " . $transaction['callback_url'] . "\n";
-            echo "Referer: " . $transaction['referer'] . "\n";
-            echo "Date: " . $transaction['date'] . "\n";
-            echo "--------------------------\n";
+        if (empty($response->authorities)) {
+            echo "No authorities found.\n";
+        } else {
+            foreach ($response->authorities as $transaction) {
+                echo "Transaction Authority: " . $transaction['authority'] . "\n";
+                echo "Amount: " . $transaction['amount'] . "\n";
+                echo "Callback URL: " . $transaction['callback_url'] . "\n";
+                echo "Referer: " . $transaction['referer'] . "\n";
+                echo "Date: " . $transaction['date'] . "\n";
+                echo "--------------------------\n";
+            }
         }
     } else {
         echo "Failed to retrieve unverified transactions. Code: " . $response->code . "\n";

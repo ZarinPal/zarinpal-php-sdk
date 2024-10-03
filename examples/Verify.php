@@ -17,7 +17,7 @@ $clientBuilder->addPlugin(new HeaderDefaultsPlugin([
 $options = new Options([
     'client_builder' => $clientBuilder,
     'sandbox' => false,
-    'merchant_id' => 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+    'merchant_id' => '67887a6d-e2f8-4de2-86b1-8db27bc171b5',
 ]);
 
 $zarinpal = new ZarinPal($options);

@@ -27,6 +27,8 @@ try {
 
     $transactions = $transactionService->getTransactions($transactionRequest);
 
+    die(var_dump($transactions));
+
     $transactionArray = [];
     foreach ($transactions as $transaction) {
         $transactionArray[] = [

@@ -21,8 +21,8 @@ final class Validator
 
     public static function validateAuthority(string $authority): void
     {
-        if (!preg_match('/^A[0-9a-zA-Z]{35}$/', $authority)) {
-            throw new InvalidArgumentException('Invalid authority format. It should be a string starting with "A" followed by 35 alphanumeric characters.');
+        if (!preg_match('/^[AS][0-9a-zA-Z]{35}$/', $authority)) {
+            throw new InvalidArgumentException('Invalid authority format. It should be a string starting with "A" or "S" followed by 35 alphanumeric characters.');
         }
     }
 
