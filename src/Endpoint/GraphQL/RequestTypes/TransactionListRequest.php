@@ -3,13 +3,14 @@
 namespace ZarinPal\Sdk\Endpoint\GraphQL\RequestTypes;
 
 use ZarinPal\Sdk\Endpoint\Fillable;
+use ZarinPal\Sdk\Validator;
 
 class TransactionListRequest
 {
     use Fillable;
 
     public string $terminalId;
-    public ?string $filter = null; // Optional filter: PAID, VERIFIED, TRASH, ACTIVE, REFUNDED
+    public ?string $filter = null;
     public ?string $id = null;
     public ?string $referenceId = null;
     public ?string $rrn = null;
@@ -22,9 +23,13 @@ class TransactionListRequest
 
     public function validate(): void
     {
-        if (empty($this->terminalId)) {
-            throw new \InvalidArgumentException('Terminal ID is required.');
-        }
+        Validator::validateTerminalId($this->terminalId);
+        Validator::validateFilter($this->filter);
+        Validator::validateEmail($this->email);
+        Validator::validateMobile($this->mobile);
+        Validator::validateCardPan($this->cardPan);
+        Validator::validateLimit($this->limit);
+        Validator::validateOffset($this->offset);
     }
 
     public function toGraphQL(): string
@@ -42,8 +47,8 @@ class TransactionListRequest
                     $card_pan: String,
                     $email: String,
                     $mobile: CellNumber,
-                    $description: String
-                    $limit: Int
+                    $description: String,
+                    $limit: Int,
                     $offset: Int
                 ) {
                     Session(
@@ -55,8 +60,8 @@ class TransactionListRequest
                         card_pan: $card_pan,
                         email: $email,
                         mobile: $mobile,
-                        description: $description
-                        limit: $limit
+                        description: $description,
+                        limit: $limit,
                         offset: $offset
                     ) {
                         id,
