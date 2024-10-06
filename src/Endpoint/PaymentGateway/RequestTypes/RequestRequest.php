@@ -16,6 +16,7 @@ class RequestRequest
     public string $callback_url;
     public ?string $mobile = null;
     public ?string $email = null;
+    public ?string $referrer_id = null;
     public ?string $currency = null;
     public ?array $wages = null;
     public ?string $cardPan = null;
@@ -44,6 +45,7 @@ class RequestRequest
             "metadata" => [
                 "mobile" => $this->mobile,
                 "email" => $this->email,
+                "referrer_id" => $this->referrer_id,
             ]
         ];
 
