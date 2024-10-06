@@ -27,8 +27,6 @@ try {
 
     $transactions = $transactionService->getTransactions($transactionRequest);
 
-    die(var_dump($transactions));
-
     $transactionArray = [];
     foreach ($transactions as $transaction) {
         $transactionArray[] = [
@@ -41,8 +39,6 @@ try {
     }
 
     echo json_encode($transactionArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-} catch (ResponseException $e) {
-    echo "GraphQL Error: " . $e->getMessage();
-} catch (Exception $e) {
-    echo "General Error: " . $e->getMessage();
+   } catch (Exception $e) {
+ echo "General Error: " . $e->getMessage();
 }

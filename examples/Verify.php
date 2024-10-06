@@ -7,7 +7,7 @@ use ZarinPal\Sdk\ClientBuilder;
 use ZarinPal\Sdk\Options;
 use ZarinPal\Sdk\ZarinPal;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes\VerifyRequest;
-
+use ZarinPal\Sdk\HttpClient\Exception\ResponseException;
 
 $clientBuilder = new ClientBuilder();
 $clientBuilder->addPlugin(new HeaderDefaultsPlugin([
@@ -49,11 +49,13 @@ if ($status === 'OK') {
                 echo "Transaction failed with code: " . $response->code;
             }
 
+        } catch (ResponseException $e) {
+            echo 'Payment Verification Failed: ' . $e->getErrorDetails();
         } catch (\Exception $e) {
-            echo 'Payment verification failed: ' . $e->getMessage();
+            echo 'Payment Error: ' . $e->getMessage();
         }
     } else {
-        echo 'No matching transaction found for this authority code.';
+        echo 'No Matching Transaction Found For This Authority Code.';
     }
 } else {
     echo 'Transaction was cancelled or failed.';

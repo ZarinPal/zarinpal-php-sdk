@@ -30,6 +30,7 @@ $request->callback_url = 'https://your-site/examples/verify.php';
 $request->mobile = '09220949640'; // Optional
 $request->email = 'test@example.com'; // Optional
 $request->currency = 'IRR'; // Optional IRR Or IRT (default IRR)
+$request->referrer_id = 'GYKCZDF'; // Optional IRR Or IRT (default IRR)
 $request->cardPan = '5894631122689482'; // Optional
 $request->wages = [
     [
@@ -50,8 +51,8 @@ try {
     header('Location:'. $url);
 
 } catch (ResponseException $e) {
+    echo 'Error in payment request: ' . $e->getMessage();
     var_dump($e->getErrorDetails());
-
 } catch (\Exception $e) {
-    var_dump($e->getMessage());
-    }
+    echo 'Payment Error: ' . $e->getMessage();
+}

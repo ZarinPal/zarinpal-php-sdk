@@ -4,6 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use ZarinPal\Sdk\Options;
 use ZarinPal\Sdk\ZarinPal;
+use ZarinPal\Sdk\HttpClient\Exception\ResponseException;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes\InquiryRequest;
 
 $options = new Options([
@@ -22,6 +23,9 @@ try {
     echo "Amount: " . $response->code . "\n";
     echo "Status: " . $response->message . "\n";
     echo "Status: " . $response->status . "\n";
+
+} catch (ResponseException $e) {
+    echo 'Transaction Inquiry Validation Error: ' . $e->getErrorDetails();
 } catch (\Exception $e) {
-    echo 'Transaction inquiry failed: ' . $e->getMessage();
+    echo 'Transaction Inquiry Validation Error: ' . $e->getMessage();
 }
