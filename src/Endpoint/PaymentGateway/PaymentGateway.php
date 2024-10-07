@@ -94,9 +94,7 @@ final class PaymentGateway
         } catch (JsonException $e) {
             throw new ResponseException('JSON parsing error: ' . $e->getMessage(), -98, null, ['details' => $e->getMessage()]);
         } catch (ResponseException $e) {
-            throw $e;
-        } catch (Exception $e) {
-            throw new ResponseException('Request failed: ' . $e->getMessage(), -99, null, ['details' => $e->getMessage()]);
+            throw new ResponseException('Response error: ' . $e->getMessage(), $e->getCode(), null, $e->getErrorDetails());
         }
 
         return $this->checkPaymentGatewayError($response);
