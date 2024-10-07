@@ -26,20 +26,20 @@ $paymentGateway = $zarinpal->paymentGateway();
 $request = new RequestRequest();
 $request->amount = 10000; //Minimum amount 10000 IRR
 $request->description = 'Payment for order 12345';
-$request->callback_url = 'https://your-site/examples/verify.php';
-$request->mobile = '09220949640'; // Optional
+$request->callback_url = 'https://your-site.test/examples/verify.php';
+$request->mobile = '09120987654'; // Optional
 $request->email = 'test@example.com'; // Optional
 $request->currency = 'IRR'; // Optional IRR Or IRT (default IRR)
 $request->referrer_id = 'GYKCZDF'; // Optional IRR Or IRT (default IRR)
-$request->cardPan = '5894631122689482'; // Optional
+$request->cardPan = '5894631122689480'; // Optional
 $request->wages = [
     [
-        'iban' => 'IR130570028780010957775103',
+        'iban' => 'IR130570028780010957775102',
         'amount' =>5000,
         'description' => 'تسهیم سود فروش'
     ],
     [
-        'iban' => 'IR670170000000352965862009',
+        'iban' => 'IR670170000000352965862005',
         'amount' => 5000,
         'description' => 'تسهیم سود فروش به شخص دوم'
     ]
@@ -51,7 +51,6 @@ try {
     header('Location:'. $url);
 
 } catch (ResponseException $e) {
-    echo 'Error in payment request: ' . $e->getMessage();
     var_dump($e->getErrorDetails());
 } catch (\Exception $e) {
     echo 'Payment Error: ' . $e->getMessage();

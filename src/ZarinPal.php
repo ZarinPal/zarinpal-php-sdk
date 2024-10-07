@@ -15,6 +15,8 @@ final class ZarinPal
     private Options $options;
     private HttpMethodsClientInterface $httpClient;
 
+    public const USER_AGENT = 'ZarinPalSdk/v.1.0 (php ' . PHP_VERSION . ')';
+
     public function __construct(Options $options = null)
     {
         $this->options = $options ?? new Options();
@@ -23,7 +25,7 @@ final class ZarinPal
         $this->clientBuilder->addPlugin(
             new HeaderDefaultsPlugin(
                 [
-                    'User-Agent' => sprintf('%sSdk/v.0.1 (php %s)', $this->getClassName(), PHP_VERSION),
+                    'User-Agent' => self::USER_AGENT,
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json',
                 ]
