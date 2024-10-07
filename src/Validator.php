@@ -26,7 +26,7 @@ final class Validator
         }
     }
 
-    public static function validateAmount(int $amount, int $minAmount = 1): void
+    public static function validateAmount(int $amount, int $minAmount = 1000): void
     {
         if ($amount < $minAmount) {
             throw new InvalidArgumentException("Amount must be at least {$minAmount}.");
