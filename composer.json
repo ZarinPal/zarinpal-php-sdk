@@ -5,7 +5,12 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "ZarinPal\\Sdk\\": "src"
+      "ZarinPal\\Sdk\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
     }
   },
   "authors": [
@@ -16,6 +21,10 @@
     {
       "name": "Hooman Naghiee",
       "email": "h.naghiee@zarinpal.com"
+    },
+    {
+      "name": "Armin Zahedi",
+      "email": "arminzahedi1999@zarinpal.com"
     }
   ],
   "minimum-stability": "stable",
@@ -26,13 +35,19 @@
     "php-http/client-common": "^2.5",
     "php-http/discovery": "^1.14",
     "ext-json": "*",
-    "psr/http-client-implementation": "*"
+    "ext-curl": "*",
+    "psr/http-client-implementation": "*",
+    "symfony/http-client": "^7.1",
+    "php-http/curl-client": "^2.2"
   },
   "require-dev": {
-    "php-http/curl-client": "^2.2",
     "laminas/laminas-diactoros": "^2.17",
-    "phpstan/phpstan": "^1.8",
     "phpunit/phpunit": "^9",
     "php-http/mock-client": "^1.5"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
   }
 }
