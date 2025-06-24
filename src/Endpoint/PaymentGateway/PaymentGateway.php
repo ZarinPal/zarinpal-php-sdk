@@ -7,6 +7,7 @@ namespace ZarinPal\Sdk\Endpoint\PaymentGateway;
 use Exception;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;
+use ZarinPal\Sdk\Endpoint\PaymentGateway\ResponseTypes\FeeCalculationResponse;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\ResponseTypes\RequestResponse;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\ResponseTypes\UnverifiedResponse;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\ResponseTypes\VerifyResponse;
@@ -23,6 +24,7 @@ final class PaymentGateway
     private const UNVERIFIED_URI = self::BASE_URL . 'unVerified.json';
     private const REVERSE_URI = self::BASE_URL . 'reverse.json';
     private const INQUIRY_URI = self::BASE_URL . 'inquiry.json';
+    private const FEE_CALCULATION_URI = self::BASE_URL . 'feeCalculation.json';
 
     private ZarinPal $sdk;
 
@@ -75,6 +77,14 @@ final class PaymentGateway
         $response = $this->httpHandler(self::INQUIRY_URI, $request->toString());
 
         return new RequestResponse($response['data']);
+    }
+
+    public function feeCalculation(RequestTypes\FeeCalculationRequest $request): FeeCalculationResponse
+    {
+        $this->fillMerchantId($request);
+        $response = $this->httpHandler(self::FEE_CALCULATION_URI, $request->toString());
+
+        return new FeeCalculationResponse($response['data']);
     }
 
     private function fillMerchantId($request): void
