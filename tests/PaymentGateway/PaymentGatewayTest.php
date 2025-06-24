@@ -8,6 +8,7 @@ use Psr\Http\Message\StreamInterface;
 use Tests\BaseTestCase;
 use ZarinPal\Sdk\ZarinPal;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\PaymentGateway;
+use ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes\FeeCalculationRequest;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes\RequestRequest;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes\VerifyRequest;
 use ZarinPal\Sdk\Endpoint\PaymentGateway\RequestTypes\UnverifiedRequest;
@@ -171,5 +172,36 @@ class PaymentGatewayTest extends BaseTestCase
 
         $response = $this->gateway->inquiry($inquiryRequest);
         $this->assertEquals(15000, $response->amount);
+    }
+
+    public function testFeeCalculation()
+    {
+        $responseBody = [
+            'data' => [
+                'amount' => 5050543,
+                'fee' => 1220,
+                'fee_type' => 'Merchant',
+                'suggested_amount' => 5051763,
+                'code' => 100,
+                'message' => 'Success'
+            ],
+            'errors' => []
+        ];
+
+        $this->clientMock->expects($this->once())
+            ->method('post')
+            ->willReturn($this->createMockResponse($responseBody));
+
+        $feeCalculationRequest = new FeeCalculationRequest();
+        $feeCalculationRequest->amount = 5050543;
+        $feeCalculationRequest->currency = 'IRR';
+
+        $response = $this->gateway->feeCalculation($feeCalculationRequest);
+        $this->assertEquals(5050543, $response->amount);
+        $this->assertEquals(1220, $response->fee);
+        $this->assertEquals('Merchant', $response->fee_type);
+        $this->assertEquals(5051763, $response->suggested_amount);
+        $this->assertEquals(100, $response->code);
+        $this->assertEquals('Success', $response->message);
     }
 }
