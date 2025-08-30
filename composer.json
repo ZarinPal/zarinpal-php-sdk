@@ -7,6 +7,7 @@
     "psr-4": {
       "ZarinPal\\Sdk\\": "src/"
     }
+    
   },
   "autoload-dev": {
     "psr-4": {
@@ -26,6 +27,7 @@
       "name": "Armin Zahedi",
       "email": "arminzahedi1999@zarinpal.com"
     }
+    
   ],
   "minimum-stability": "stable",
   "require": {
@@ -36,13 +38,11 @@
     "php-http/discovery": "^1.14",
     "ext-json": "*",
     "ext-curl": "*",
-    "psr/http-client-implementation": "*",
-    "symfony/http-client": "^7.1",
     "php-http/curl-client": "^2.2"
   },
   "require-dev": {
-    "laminas/laminas-diactoros": "^2.17",
-    "phpunit/phpunit": "^9",
+    "laminas/laminas-diactoros": "^3.0",
+    "phpunit/phpunit": "^10",
     "php-http/mock-client": "^1.5"
   },
   "config": {
